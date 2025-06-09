@@ -193,9 +193,12 @@ function Login() {
       {
         passwordModel ?
           <div className="login-container">
+            <div className="infinity-background">
+              <div className="infinity-shape"></div>
+            </div>
             <div className="login-card animate-fade">
               <div className="login-header">
-                <h1>Ticketing System</h1>
+                <h1>Infinis TMS</h1>
                 <p className="text-muted">Update your Password</p>
               </div>
 
@@ -260,9 +263,12 @@ function Login() {
           </div>
           :
           <div className="login-container">
+            <div className="infinity-background">
+              <div className="infinity-shape"></div>
+            </div>
             <div className="login-card animate-fade">
               <div className="login-header">
-                <h1>Ticketing System</h1>
+                <h1>Infinis TMS</h1>
                 <p className="text-muted">Sign in to your account</p>
               </div>
 
@@ -293,17 +299,7 @@ function Login() {
                   />
                 </div>
 
-                {/* <div className="form-group">
-                  <label htmlFor="designation" className="form-label">Role</label>
-                  <select onChange={(e) => setDesignation(e.target.value)} className="form-control" name="designation" id="designation">
-                    <option value="" disabled selected>--Select Your Role--</option>
-                    <option value="superadmin">Super Admin</option>
-                    <option value="admin">Admin</option>
-                    <option value="Manager">Manager</option>
-                    <option value="Team Leader">Team Leader</option>
-                    <option value="Executive">Executive</option>
-                  </select>
-                </div> */}
+
                 {
                   loading ? <button className="btn btn-primary btn-block">
                     <img src="/img/loader.png" className='Loader' alt="loader" />
@@ -323,10 +319,178 @@ function Login() {
             </div>
           </div>
       }
+      <style jsx>{`
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        
+
+        
+      `}</style>
     </>
-
-
   );
 }
 
 export default Login;
+{/*             5  <div className="background-animation">
+              <div className="particle particle-1"></div>
+              <div className="particle particle-2"></div>
+              <div className="particle particle-3"></div>
+              <div className="particle particle-4"></div>
+              <div className="particle particle-5"></div>
+              <div className="particle particle-6"></div>
+              <div className="glow-orb glow-1"></div>
+              <div className="glow-orb glow-2"></div>
+              <div className="glow-orb glow-3"></div>
+              <div className="floating-shapes">
+                <div className="shape shape-1"></div>
+                <div className="shape shape-2"></div>
+                <div className="shape shape-3"></div>
+              </div>
+            </div> */}
+{/* 4 <div class="infinity-bg">
+              <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#00f2fe">
+                      <animate attributeName="offset" values="0;1;0" dur="4s" repeatCount="indefinite" />
+                    </stop>
+                    <stop offset="50%" stop-color="#4facfe" />
+                    <stop offset="100%" stop-color="#00f2fe">
+                      <animate attributeName="offset" values="1;0;1" dur="4s" repeatCount="indefinite" />
+                    </stop>
+                  </linearGradient>
+
+                  <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="3" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+
+                <path
+                  d="M60,75
+           C60,30 120,30 150,75
+           C180,120 240,120 240,75
+           C240,30 180,30 150,75
+           C120,120 60,120 60,75 Z"
+                  fill="none"
+                  stroke="url(#waveGradient)"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  filter="url(#glow)"
+                />
+              </svg>
+            </div> */}
+
+{/* 3 <div class="infinity-bg">
+              <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#8b5cf6" />
+                    <stop offset="100%" stop-color="#06b6d4" />
+                  </linearGradient>
+
+                  <mask id="infinityWaveMask">
+                    <path id="wavePath"
+                      d="M60,75
+               C60,30 120,30 150,75
+               C180,120 240,120 240,75
+               C240,30 180,30 150,75
+               C120,120 60,120 60,75 Z"
+                      fill="none"
+                      stroke="white"
+                      stroke-width="6">
+                      <animate attributeName="stroke-dashoffset"
+                        from="0" to="-60"
+                        dur="1.2s"
+                        repeatCount="indefinite" />
+                    </path>
+                  </mask>
+                </defs>
+
+                <path
+                  d="M60,75
+           C60,30 120,30 150,75
+           C180,120 240,120 240,75
+           C240,30 180,30 150,75
+           C120,120 60,120 60,75 Z"
+                  fill="none"
+                  stroke="url(#waveGradient)"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  mask="url(#infinityWaveMask)"
+                />
+              </svg>
+            </div> */}
+{/* 2 <div class="infinity-bg">
+              <svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="infinityGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#8b5cf6" />
+                    <stop offset="100%" stop-color="#06b6d4" />
+                  </linearGradient>
+                </defs>
+
+                <path
+                  d="M60,75
+           C60,30 120,30 150,75
+           C180,120 240,120 240,75
+           C240,30 180,30 150,75
+           C120,120 60,120 60,75 Z"
+                  fill="none"
+                  stroke="url(#infinityGradient)"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-dasharray="15 10"
+                  stroke-dashoffset="0"
+                >
+                  <animate attributeName="stroke-dashoffset"
+                    values="0;25"
+                    dur="1s"
+                    repeatCount="indefinite" />
+                </path>
+              </svg>
+            </div> */}
+{/* 1 <div class="infinity-bg">
+              <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+
+                <defs>
+                  <pattern id="wave" x="0" y="0" width="20" height="10" patternUnits="userSpaceOnUse">
+                    <path d="M 0 5 Q 5 0, 10 5 T 20 5" fill="none" stroke="#a855f7" stroke-width="2" />
+                  </pattern>
+
+                  <mask id="wave-mask">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                    <rect x="0" y="0" width="200%" height="100%" fill="url(#wave)">
+                      <animateTransform attributeName="transform"
+                        type="translate"
+                        from="0,0" to="20,0"
+                        dur="1s" repeatCount="indefinite" />
+                    </rect>
+                  </mask>
+                </defs>
+
+                <path
+                  d="M30,50
+           C30,20 70,20 100,50
+           C130,80 170,80 170,50
+           C170,20 130,20 100,50
+           C70,80 30,80 30,50 Z"
+                  fill="none"
+                  stroke="#9333ea"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  mask="url(#wave-mask)"
+                />
+              </svg>
+            </div> */}

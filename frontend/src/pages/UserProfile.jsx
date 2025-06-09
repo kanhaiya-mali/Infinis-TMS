@@ -205,7 +205,9 @@ function UserProfile() {
         },
         withCredentials: true
       }).then(async (r) => {
-        await statusUpdateforUserRequest(activeRequest?._id, 'expired');
+        if (!user?.designation?.includes('admin')) {
+          await statusUpdateforUserRequest(activeRequest?._id, 'expired');
+        }
         setShowPasswordForm(false);
         setPasswordData({
           currentPassword: '',
@@ -418,16 +420,16 @@ function UserProfile() {
                   <div>
                     <p className="font-medium">Your Branches</p>
                     {
-                      user?.branches.length >0 ?
-                      <div style={{ display: 'flex', justifyContent: 'space-evenly', marginLeft: '20%', width: '100%' }}>
-                      {
-                        user?.branches?.map((curElem, index) => (
-                          <p className="text-sm text-muted">{index + 1}. {curElem}</p>
-                        ))
-                      }
-                    </div> : 'No Branches Assigned Yet!'
+                      user?.branches.length > 0 ?
+                        <div style={{ display: 'flex', justifyContent: 'space-evenly', marginLeft: '20%', width: '100%' }}>
+                          {
+                            user?.branches?.map((curElem, index) => (
+                              <p className="text-sm text-muted">{index + 1}. {curElem}</p>
+                            ))
+                          }
+                        </div> : 'No Branches Assigned Yet!'
                     }
-                    
+
 
                   </div>
                 )}

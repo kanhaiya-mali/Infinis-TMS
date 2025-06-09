@@ -122,7 +122,10 @@ function Signup({ verifySuperAdmin }) {
 
     return (
         <div className="login-container"  >
-            <div className="" style={{ width: '50vw' }}>
+            <div className="infinity-background">
+              <div className="infinity-shape"></div>
+            </div>
+            <div className="login-card animated-fade"  >
                 <div className="login-header">
                     <h1>Ticketing System</h1>
                     <p className="text-muted">Sign Up to Start</p>
@@ -180,7 +183,7 @@ function Signup({ verifySuperAdmin }) {
                             className="form-control"
                             value={formData?.password}
                             onChange={handleChange}
-                            placeholder="Enter your password"
+                            placeholder="Enter  password"
                             required
                         />
                     </div>
@@ -194,7 +197,7 @@ function Signup({ verifySuperAdmin }) {
                             className="form-control"
                             value={formData?.cpassword}
                             onChange={handleChange}
-                            placeholder="Confirm your password"
+                            placeholder="Confirm password"
                             required
                         />
                     </div>
@@ -208,7 +211,7 @@ function Signup({ verifySuperAdmin }) {
                             className="form-control"
                             value={formData?.mobile}
                             onChange={handleChange}
-                            placeholder="Enter your Mobile Number"
+                            placeholder="Enter Mobile No."
                             required
                         />
                     </div>
@@ -229,7 +232,9 @@ function Signup({ verifySuperAdmin }) {
 
                     <div className="form-group">
                         <label htmlFor="" className="form-label">Profile Picture</label>
-                        <label htmlFor="profile" className='form-control' style={{ backgroundColor: 'rgba(35, 225, 232, 0.9)', color: "white", padding: '3.5%', borderRadius: '12px' }}>{profile ? profile?.name : 'Upload a Profile Picture'}</label>
+                        <label htmlFor="profile" className='form-control' style={{ backgroundColor: 'rgba(35, 225, 232, 0.9)', 
+                            color: "white", padding: '7%', borderRadius: '12px'
+                             }}>{profile ? profile?.name : 'Upload a Profile Picture'}</label>
                         <input
                             type="file"
                             id="profile"
