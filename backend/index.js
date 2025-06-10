@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 dbConnect();
 
-app.use('/superadmin', superAdminApp);
+app.use('/superadmin', superAdminApp); 
 
 app.use('/auth', authApp);
 

@@ -9,6 +9,7 @@ import TicketSettings from "../models/ticketSetingsModel.js";
 import User from "../models/userModel.js";
 import bcrypt from 'bcryptjs'
 import UserEditRequests from "../models/userReqModel.js";
+import SuperAdmin from "../models/superAdminModel.js";
 
 export const addUser = async (req, res) => {
     try {
@@ -315,6 +316,45 @@ export const updateUser = async (req, res) => {
             if (req?.file) {
                 const imageUrl = `https://tms.infinis.io/file/${req.file.originalname}`;
                 const profile = await Admin.findByIdAndUpdate(userId, { profile: imageUrl });
+                userUpdated = true;
+            }
+        }
+        if (req.body.designation === 'superadmin') {
+            user = await SuperAdmin.findById(userId);
+            if (req.body?.username && user?.username !== req?.body?.username) {
+                const username = await SuperAdmin.findByIdAndUpdate(userId, { username: req.body.username });
+                userUpdated = true;
+            }
+            if (req.body?.email && user?.email !== req?.body?.email) {
+                const username = await SuperAdmin.findByIdAndUpdate(userId, { email: req.body.email });
+                userUpdated = true;
+            }
+            if (req.body?.name && user?.name !== req?.body?.name) {
+                const name = await SuperAdmin.findByIdAndUpdate(userId, { name: req.body.name });
+                userUpdated = true;
+            }
+            if (req.body?.password && user?.password !== req?.body?.password) {
+                const hashedPassword = await bcrypt.hash(req?.body?.password, 10);
+                const password = await SuperAdmin.findByIdAndUpdate(userId, { password: hashedPassword });
+                userUpdated = true;
+            }
+            if (req.body?.mobile && String(user?.mobile) !== String(req?.body?.mobile)) {
+                const mobile = await SuperAdmin.findByIdAndUpdate(userId, { mobile: req.body.mobile });
+                userUpdated = true;
+            }
+           
+
+            if (req.body?.address && user?.address !== req?.body?.address) {
+                const address = await SuperAdmin.findByIdAndUpdate(userId, { address: req.body.address });
+                userUpdated = true;
+            }
+            if (req.body?.designation && user?.designation !== req?.body?.designation) {
+                const designation = await SuperAdmin.findByIdAndUpdate(userId, { designation: req.body.designation });
+                userUpdated = true;
+            }
+            if (req?.file) {
+                const imageUrl = `https://tms.infinis.io/file/${req.file.originalname}`;
+                const profile = await SuperAdmin.findByIdAndUpdate(userId, { profile: imageUrl });
                 userUpdated = true;
             }
         }
