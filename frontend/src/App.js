@@ -35,9 +35,10 @@ function App() {
       if (err.response && err.response.data) {
         if (err.response.data.notAuthorized) {
           setSessionWarning(true);
-        } else {
-          toast.error(err.response.data.message || "Something went wrong");
-        }
+        } 
+        // else {
+        //   toast.error(err.response.data.message || "Something went wrong");
+        // }
       } else {
         toast.error("Something went wrong");
       }
