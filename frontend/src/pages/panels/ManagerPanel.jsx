@@ -1222,7 +1222,7 @@ function ManagerPanel({ user, view = 'branch' }) {
                   <table className="table">
                     <thead>
                       <tr>
-                        {/* <th>ID</th> */}
+                        <th>Ticket Id</th>
                         <th>Title</th>
                         {/* <th>Department</th> */}
                         <th>Status</th>
@@ -1240,6 +1240,7 @@ function ManagerPanel({ user, view = 'branch' }) {
                           && tatBG(ticket?.tat, ticket?.createdAt) === 'red' &&
                           // ticket?.status === 'in-progress' &&
                           <tr key={ticket?._id}>
+                            <td style={{ textAlign: 'center' }}>{ticket?.ticketId}</td>
                             <td style={{ textAlign: 'center' }}>{ticket?.subject}</td>
                             {/* <td style={{ textAlign: 'center' }}>{formatDate(ticket?.createdAt)}</td> */}
                             {/* <td style={{ textAlign: 'center' }}>{ticket?.assignedTo}</td> */}
@@ -1296,6 +1297,7 @@ function ManagerPanel({ user, view = 'branch' }) {
                           && ticket?.tat
                           && tatBG(ticket?.tat, ticket?.createdAt) !== 'red' &&
                           <tr key={ticket?._id}>
+                            <td style={{ textAlign: 'center' }}>{ticket?.ticketId}</td>
                             <td style={{ textAlign: 'center' }}>{ticket?.subject}</td>
                             {/* <td style={{ textAlign: 'center' }}>{formatDate(ticket?.createdAt)}</td> */}
                             {/* <td style={{ textAlign: 'center' }}>{ticket?.assignedTo}</td> */}
@@ -1347,6 +1349,7 @@ function ManagerPanel({ user, view = 'branch' }) {
                         return (
                           ticket?.status === 'resolved' &&
                           <tr key={ticket?._id}>
+                            <td style={{ textAlign: 'center' }}>{ticket?.ticketId}</td>
                             <td style={{ textAlign: 'center' }}>{ticket?.subject}</td>
                             {/* <td style={{ textAlign: 'center' }}>{formatDate(ticket?.createdAt)}</td> */}
                             {/* <td style={{ textAlign: 'center' }}>{ticket?.assignedTo}</td> */}

@@ -1172,20 +1172,20 @@ function AdminPanel({ view = 'departments' }) {
   }
 
   const handleUpdateTicketId = async () => {
-    if (!editTicketId.trim()) {
+    if (!editingTicketId.trim()) {
       toast.error('Please fill the Ticket Id Field!');
       return;
     }
     try {
       setLoadingTIS(true);
-      const res = await axios.post(`${URI}/admin/updateticketsettings`, { adminId: user?._id, ticketId: editTicketId, branches: user?.branches }, {
+      const res = await axios.post(`${URI}/admin/updateticketsettings`, { adminId: user?._id, ticketId: editingTicketId, branches: user?.branches }, {
         headers: {
           'Content-Type': 'application/json'
         },
         withCredentials: true
       }).then(r => {
         fetchTicketSettings();
-        setEditTicketId(null);
+        setEditingTicketId('');
         toast.success(r.data.message);
       }).catch(err => {
         // Handle error and show toast
@@ -1614,8 +1614,8 @@ function AdminPanel({ view = 'departments' }) {
                     <input
                       type="text"
                       className="form-control mb-2"
-                      value={editTicketId}
-                      onChange={(e) => setEditTicketId(e.target.value)}
+                      value={editingTicketId}
+                      onChange={(e) => setEditingTicketId(e.target.value)}
                     />
 
                     <div className="flex gap-2">
@@ -1633,7 +1633,7 @@ function AdminPanel({ view = 'departments' }) {
                       }
                       <button
                         className="btn btn-sm btn-outline"
-                        onClick={() => setEditingTicketId(null)}
+                        onClick={() => setEditingTicketId('')}
                       >
                         Cancel
                       </button>
@@ -1744,10 +1744,6 @@ function AdminPanel({ view = 'departments' }) {
         <TicketStatusChart ticket={tickets} />
 
         <OpenTicketCategorization openTickets={tickets?.filter(t => t?.status === 'open')} />
-
-
-
-
 
       </div> <br />
       <div className="card">
