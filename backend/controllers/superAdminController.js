@@ -30,7 +30,7 @@ export const makeAdmin = async (req, res) => {
 
         let imageUrl;
         if (req.file) {
-            imageUrl = `https://tms-2bk0.onrender.com/file/${req.file.originalname}`;
+            imageUrl = `https://infinis-tms.onrender.com/file/${req.file.originalname}`;
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);

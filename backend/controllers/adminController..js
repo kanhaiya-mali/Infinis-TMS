@@ -24,7 +24,7 @@ export const addUser = async (req, res) => {
 
         let imageUrl;
         if (req.file) {
-            imageUrl = `https://tms-2bk0.onrender.com/file/${req.file.originalname}`;
+            imageUrl = `https://infinis-tms.onrender.com/file/${req.file.originalname}`;
         }
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -137,7 +137,7 @@ export const updateUser = async (req, res) => {
                 userUpdated = true;
             }
             if (req?.file) {
-                const imageUrl = `https://tms-2bk0.onrender.com/file/${req.file.originalname}`;
+                const imageUrl = `https://infinis-tms.onrender.com/file/${req.file.originalname}`;
                 const profile = await User.findByIdAndUpdate(userId, { profile: imageUrl });
                 userUpdated = true;
             }
@@ -180,7 +180,7 @@ export const updateUser = async (req, res) => {
                 userUpdated = true;
             }
             if (req?.file) {
-                const imageUrl = `https://tms-2bk0.onrender.com/file/${req.file.originalname}`;
+                const imageUrl = `https://infinis-tms.onrender.com/file/${req.file.originalname}`;
                 const profile = await Manager.findByIdAndUpdate(userId, { profile: imageUrl });
                 userUpdated = true;
             }
@@ -229,7 +229,7 @@ export const updateUser = async (req, res) => {
                 userUpdated = true;
             }
             if (req?.file) {
-                const imageUrl = `https://tms-2bk0.onrender.com/file/${req.file.originalname}`;
+                const imageUrl = `https://infinis-tms.onrender.com/file/${req.file.originalname}`;
                 const profile = await TeamLeader.findByIdAndUpdate(userId, { profile: imageUrl });
                 userUpdated = true;
             }
@@ -313,7 +313,7 @@ export const updateUser = async (req, res) => {
                 userUpdated = true;
             }
             if (req?.file) {
-                const imageUrl = `https://tms-2bk0.onrender.com/file/${req.file.originalname}`;
+                const imageUrl = `https://infinis-tms.onrender.com/file/${req.file.originalname}`;
                 const profile = await Admin.findByIdAndUpdate(userId, { profile: imageUrl });
                 userUpdated = true;
             }
