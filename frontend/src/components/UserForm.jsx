@@ -576,7 +576,7 @@ function UserForm({ designation, onCancel, initialData = null, fetchAllUsers, pa
           user?.designation === 'admin' &&
           <div className="form-group">
             <label htmlFor="branch" className="form-label">Branch</label>
-            <select onChange={handleChange} name="branch" id="branch" className={`form-control ${errors.branch ? 'border-error' : ''}`}>
+            <select value={formData?.branch ? formData?.branch : initialData?.branch} onChange={handleChange} name="branch" id="branch" className={`form-control ${errors.branch ? 'border-error' : ''}`}>
               <option value="" disabled selected>--Branch--</option>
               {
                 user?.branches?.map((curElem) => {
@@ -604,7 +604,7 @@ function UserForm({ designation, onCancel, initialData = null, fetchAllUsers, pa
               (designation === 'Executive' || designation === 'Team Leader') &&
               <div className="form-group">
                 <label htmlFor="department" className="form-label">Department</label>
-                <select onChange={handleChange} name="department" id="department" className={`form-control ${errors.branch ? 'border-error' : ''}`}>
+                <select value={formData?.department ? formData?.department : initialData?.department} onChange={handleChange} name="department" id="department" className={`form-control ${errors.branch ? 'border-error' : ''}`}>
                   <option value="" disabled selected>--Department--</option>
                   {
                     departments?.map((curElem) => (

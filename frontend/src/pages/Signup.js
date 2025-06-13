@@ -7,6 +7,8 @@ import URI from '../utills';
 import toast from 'react-hot-toast';
 import { setUser } from '../Redux/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 function Signup({ verifySuperAdmin }) {
     const dispatch = useDispatch();
@@ -119,11 +121,24 @@ function Signup({ verifySuperAdmin }) {
             setLoading(false);
         }
     }
+    const [showPassword, setShowPassword] = useState(false);
+
+
+    const togglePassword = () => {
+        setShowPassword((prev) => !prev);
+    };
+
+    const [showcPassword, setShowcPassword] = useState(false);
+
+
+    const togglecPassword = () => {
+        setShowcPassword((prev) => !prev);
+    };
 
     return (
         <div className="login-container"  >
             <div className="infinity-background">
-              <div className="infinity-shape"></div>
+                <div className="infinity-shape"></div>
             </div>
             <div className="login-card animated-fade"  >
                 <div className="login-header">
@@ -175,31 +190,43 @@ function Signup({ verifySuperAdmin }) {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name='password'
-                            className="form-control"
-                            value={formData?.password}
-                            onChange={handleChange}
-                            placeholder="Enter  password"
-                            required
-                        />
+                        <label htmlFor="cpassword" className="form-label">Password</label>
+                        <div style={styles.container}  >
+                            <input
+                                className='form-control'
+                                id='password'
+                                type={showPassword ? "text" : "password"}
+                                name='password'
+                                placeholder={"Enter Password"}
+                                value={formData?.password}
+                                onChange={handleChange}
+                                required
+                            // style={styles.input}
+                            />
+                            <span onClick={togglePassword} style={styles.icon}>
+                                {formData?.password ? showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} /> : ''}
+                            </span>
+                        </div>
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="cpassword" className="form-label">Confirm Password</label>
-                        <input
-                            type="password"
-                            id="cpassword"
-                            name='cpassword'
-                            className="form-control"
-                            value={formData?.cpassword}
-                            onChange={handleChange}
-                            placeholder="Confirm password"
-                            required
-                        />
+                        <div style={styles.container}  >
+                            <input
+                                className='form-control'
+                                id='cpassword'
+                                type={showcPassword ? "text" : "password"}
+                                name='cpassword'
+                                placeholder={"Confirm Password"}
+                                value={formData?.cpassword}
+                                onChange={handleChange}
+                                required
+                            // style={styles.input}
+                            />
+                            <span onClick={togglecPassword} style={styles.icon}>
+                                {formData?.cpassword ? showcPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} /> : ''}
+                            </span>
+                        </div>
                     </div>
 
                     <div className="form-group">
@@ -232,9 +259,10 @@ function Signup({ verifySuperAdmin }) {
 
                     <div className="form-group">
                         <label htmlFor="" className="form-label">Profile Picture</label>
-                        <label htmlFor="profile" className='form-control' style={{ backgroundColor: 'rgba(35, 225, 232, 0.9)', 
+                        <label htmlFor="profile" className='form-control' style={{
+                            backgroundColor: 'rgba(35, 225, 232, 0.9)',
                             color: "white", padding: '7%', borderRadius: '12px'
-                             }}>{profile ? profile?.name : 'Upload a Profile Picture'}</label>
+                        }}>{profile ? profile?.name : 'Upload a Profile Picture'}</label>
                         <input
                             type="file"
                             id="profile"
@@ -267,5 +295,29 @@ function Signup({ verifySuperAdmin }) {
         </div>
     );
 }
+
+// Basic inline styling
+const styles = {
+    container: {
+        position: 'relative',
+        width: '100%',
+        maxWidth: '300px',
+    },
+    input: {
+        width: '100%',
+        padding: '10px 40px 10px 10px',
+        border: 'none'
+        // fontSize: '16px',
+    },
+    icon: {
+        position: 'absolute',
+        right: '10px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        cursor: 'pointer',
+        color: '#b2b0b0',
+        // fontSize: '18px',
+    },
+};
 
 export default Signup;

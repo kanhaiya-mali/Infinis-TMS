@@ -203,7 +203,7 @@ function BranchForm({ onCancel, fetchBranches, initialData = null, admins = [] }
             id="admin"
             name="admin"
             className="form-select"
-            // value={formData?.admin}
+            value={formData?.admin ? formData?.admin : initialData?.admin}
             onChange={handleChange}
           >
             <option value="" selected disabled>Select an admin (optional)</option>
@@ -212,9 +212,6 @@ function BranchForm({ onCancel, fetchBranches, initialData = null, admins = [] }
                 {admin?.username} - {admin?.branches?.map(b => (<>{b}, </>))}
               </option>
             ))}
-            {
-              initialData?.admin && <option value="" style={{ color: 'red' }}>Remove Admin</option>
-            }
 
           </select>
         </div>

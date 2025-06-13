@@ -1,17 +1,22 @@
 import { useEffect, useState } from 'react';
 import mockPasswordRequests from '../data/mockPasswordRequests';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import URI from '../utills'
 import toast from 'react-hot-toast';
 import SessionEndWarning from '../components/SessionEndWarning';
+import { setUser } from '../Redux/userSlice';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 
 function UserProfile() {
 
   const { user } = useSelector(store => store.user);
+  const dispatch = useDispatch();
 
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
+    username: user?.username,
     name: user?.name,
     email: user?.email,
     mobile: user?.mobile
@@ -121,7 +126,7 @@ function UserProfile() {
       setLoadingCS(true);
       setLoadingES(true);
       const formdata = new FormData();
-      // formdata.append('username', formData?.username);
+      formdata.append('username', formData?.username);
       formdata.append('email', formData?.email);
       formdata.append('name', formData?.name);
       // formdata.append('password', formData?.password);
@@ -147,6 +152,14 @@ function UserProfile() {
         if (!user?.designation?.includes('admin')) {
           await statusUpdateforUserRequest(activeRequest?._id, 'expired');
         }
+        dispatch(setUser({
+          ...user,
+          username: formData?.username,
+          name: formData?.name,
+          email: formData?.email,
+          mobile: formData?.mobile,
+          // profile: formdata?.profile
+        }))
         setFormData({
           username: '',
           email: '',
@@ -157,6 +170,7 @@ function UserProfile() {
           department: '',
           address: ''
         });
+
         setProfile(null);
         setIsEditing(false);
         cancelEdit();
@@ -234,6 +248,7 @@ function UserProfile() {
   const cancelEdit = () => {
     setIsEditing(false);
     setFormData({
+      username: user?.username,
       name: user?.name,
       email: user?.email,
       mobile: user?.mobile
@@ -349,6 +364,25 @@ function UserProfile() {
     }
   }
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const [shownPassword, setShownPassword] = useState(false);
+
+  const togglenPassword = () => {
+    setShownPassword((prev) => !prev);
+  };
+
+  const [showcPassword, setShowcPassword] = useState(false);
+
+  const togglecPassword = () => {
+    setShowcPassword((prev) => !prev);
+  };
+
+
   return (
     <div className="animate-fade">
       {sessionWarning && <SessionEndWarning setSessionWarning={setSessionWarning} />}
@@ -445,6 +479,21 @@ function UserProfile() {
             <div className="card-body">
               <h3 className="mb-3">Edit Profile</h3>
               <form onSubmit={updateUser}>
+                {
+                  user?.designation === 'superadmin' &&
+                  <div className="form-group">
+                    <label htmlFor="username" className="form-label">Username</label>
+                    <input
+                      type="text"
+                      id="username"
+                      name="username"
+                      className={`form-control ${errors.name ? 'border-error' : ''}`}
+                      value={formData?.username}
+                      onChange={handleChange}
+                    />
+                    {errors.username && <div className="text-error text-sm mt-1">{errors.username}</div>}
+                  </div>
+                }
                 <div className="form-group">
                   <label htmlFor="name" className="form-label">Full Name</label>
                   <input
@@ -530,14 +579,19 @@ function UserProfile() {
               <form onSubmit={handlePasswordSubmit}>
                 <div className="form-group">
                   <label htmlFor="currentPassword" className="form-label">Current Password</label>
-                  <input
-                    type="password"
-                    id="currentPassword"
-                    name="currentPassword"
-                    className={`form-control ${errors.currentPassword ? 'border-error' : ''}`}
-                    value={passwordData.currentPassword}
-                    onChange={handlePasswordChange}
-                  />
+                  <div style={styles.container}  >
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      id="currentPassword"
+                      name="currentPassword"
+                      className={`form-control ${errors.currentPassword ? 'border-error' : ''}`}
+                      value={passwordData.currentPassword}
+                      onChange={handlePasswordChange}
+                    />
+                    <span onClick={togglePassword} style={styles.icon}>
+                      {passwordData.currentPassword ? showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} /> : ''}
+                    </span>
+                  </div>
                   {errors.currentPassword && (
                     <div className="text-error text-sm mt-1">{errors.currentPassword}</div>
                   )}
@@ -545,14 +599,19 @@ function UserProfile() {
 
                 <div className="form-group">
                   <label htmlFor="newPassword" className="form-label">New Password</label>
-                  <input
-                    type="password"
-                    id="newPassword"
-                    name="newPassword"
-                    className={`form-control ${errors?.newPassword ? 'border-error' : ''}`}
-                    value={passwordData?.newPassword}
-                    onChange={handlePasswordChange}
-                  />
+                  <div style={styles.container}  >
+                    <input
+                      type={shownPassword ? "text" : "password"}
+                      id="newPassword"
+                      name="newPassword"
+                      className={`form-control ${errors?.newPassword ? 'border-error' : ''}`}
+                      value={passwordData?.newPassword}
+                      onChange={handlePasswordChange}
+                    />
+                    <span onClick={togglenPassword} style={styles.icon}>
+                      {passwordData?.newPassword ? shownPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} /> : ''}
+                    </span>
+                  </div>
                   {errors.newPassword && (
                     <div className="text-error text-sm mt-1">{errors?.newPassword}</div>
                   )}
@@ -560,14 +619,19 @@ function UserProfile() {
 
                 <div className="form-group">
                   <label htmlFor="confirmPassword" className="form-label">Confirm New Password</label>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    className={`form-control ${errors.confirmPassword ? 'border-error' : ''}`}
-                    value={passwordData.confirmPassword}
-                    onChange={handlePasswordChange}
-                  />
+                  <div style={styles.container}  >
+                    <input
+                      type={showcPassword ? "text" : "password"}
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      className={`form-control ${errors.confirmPassword ? 'border-error' : ''}`}
+                      value={passwordData.confirmPassword}
+                      onChange={handlePasswordChange}
+                    />
+                    <span onClick={togglecPassword} style={styles.icon}>
+                      {passwordData.confirmPassword ? showcPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} /> : ''}
+                    </span>
+                  </div>
                   {errors.confirmPassword && (
                     <div className="text-error text-sm mt-1">{errors.confirmPassword}</div>
                   )}
@@ -801,13 +865,39 @@ function UserProfile() {
 
               </div>
             </>
-          )}
-        </div>
+          )
+          }
+        </div >
 
-      </div>
+      </div >
 
     </div >
   );
 }
+
+// Basic inline styling
+const styles = {
+  container: {
+    position: 'relative',
+    width: '100%',
+    // maxWidth: '300px',
+  },
+  input: {
+    width: '100%',
+    padding: '10px 40px 10px 10px',
+    border: 'none'
+    // fontSize: '16px',
+  },
+  icon: {
+    position: 'absolute',
+    right: '10px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    color: '#b2b0b0',
+    // fontSize: '18px',
+  },
+
+};
 
 export default UserProfile;

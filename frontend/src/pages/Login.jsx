@@ -6,6 +6,10 @@ import axios from 'axios';
 import URI from '../utills';
 import toast from 'react-hot-toast';
 import { setUser } from '../Redux/userSlice';
+import { faDyalog } from '@fortawesome/free-brands-svg-icons'
+import { faBell, faBuilding, faChartBar, faComment, faEye, faEyeSlash, faMoon, faSun, faUser } from '@fortawesome/free-regular-svg-icons'
+import { faAdd, faBars, faChartLine, faCodePullRequest, faCog, faCommentDots, faGear, faLock, faPersonCircleQuestion, faPlusSquare, faSignOut, faTicketAlt, faTimes, faUserCog, faUsers, faUsersCog } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Login() {
   const dispatch = useDispatch();
@@ -188,6 +192,12 @@ function Login() {
     }
   }
 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <>
       {
@@ -227,6 +237,7 @@ function Login() {
                     placeholder="Enter your password"
                     required
                   />
+
                 </div>
 
                 <div className="form-group">
@@ -287,18 +298,24 @@ function Login() {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="password" className="form-label">Password</label>
-                  <input
-                    type="password"
-                    id="password"
-                    className="form-control"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
-                    required
-                  />
+                  <label htmlFor="cpassword" className="form-label">Password</label>
+                  <div style={styles.container}  >
+                    <input
+                      className='form-control'
+                      id='password'
+                      type={showPassword ? "text" : "password"}
+                      name='password'
+                      placeholder={"Enter Password"}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    // style={styles.input}
+                    />
+                    <span onClick={togglePassword} style={styles.icon}>
+                      {password ? showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} /> : ''}
+                    </span>
+                  </div>
                 </div>
-
 
                 {
                   loading ? <button className="btn btn-primary btn-block">
@@ -325,14 +342,35 @@ function Login() {
           padding: 0;
           box-sizing: border-box;
         }
-
-        
-
-        
       `}</style>
     </>
   );
 }
+
+// Basic inline styling
+const styles = {
+  container: {
+    position: 'relative',
+    width: '100%',
+    // maxWidth: '300px',
+  },
+  input: {
+    width: '100%',
+    padding: '10px 40px 10px 10px',
+    border: 'none'
+    // fontSize: '16px',
+  },
+  icon: {
+    position: 'absolute',
+    right: '10px',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    cursor: 'pointer',
+    color: '#b2b0b0',
+    // fontSize: '18px',
+  },
+
+};
 
 export default Login;
 {/*             5  <div className="background-animation">
