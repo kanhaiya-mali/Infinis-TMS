@@ -64,20 +64,21 @@ export const raiseTicket = async (req, res) => {
             });
 
             const manageremail = await Manager.findOne({ branch: req.body.branch });
-
             const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: process.env.USER_EMAIL,
-                    pass: process.env.EMAIL_PASS
-                }
-            });
+                    service: 'gmail',
+                    auth: {
+                        user: process.env.USER_EMAIL,
+                        pass: process.env.EMAIL_PASS
+                    }
+                });
+            if (manageremail && manageremail !== '') {
+                
 
-            const mailBody = {
-                from: process.env.USER_EMAIL,
-                to: manageremail.email,
-                subject: 'New Ticket Raised in Your Branch',
-                html: `<p>Ticket ID: ${formattedTicketId} <br>
+                const mailBody = {
+                    from: process.env.USER_EMAIL,
+                    to: manageremail?.email,
+                    subject: 'New Ticket Raised in Your Branch',
+                    html: `<p>Ticket ID: ${formattedTicketId} <br>
                     Name: ${saveddata?.name} <br>
                     Subject: ${saveddata?.subject} <br>
                     Mobile: ${saveddata?.mobile} <br>
@@ -86,18 +87,20 @@ export const raiseTicket = async (req, res) => {
                     T.A.T. : ${saveddata?.tat} <br>
                     Raised By : ${saveddata?.issuedby} <br>
                     ${saveddata.department.map(dept =>
-                    `${dept?.name} : ${dept?.description} <br>`).join('')}
+                        `${dept?.name} : ${dept?.description} <br>`).join('')}
                     ${attachedFile ? `Attachment: <a href="${attachedFile}" target="_blank" rel="noopener noreferrer">View Attached File</a>` : ''}
                 </p>`
-            };
-            await transporter.sendMail(mailBody);
+                };
+                await transporter.sendMail(mailBody);
+            }
 
-            await Promise.all(emails.map(async (curElem) => {
-                const mailBody = {
-                    from: process.env.USER_EMAIL,
-                    to: curElem.email,
-                    subject: 'New Ticket Raised in Your Department',
-                    html: `<p>
+            if (emails?.length > 0) {
+                await Promise.all(emails.map(async (curElem) => {
+                    const mailBody = {
+                        from: process.env.USER_EMAIL,
+                        to: curElem.email,
+                        subject: 'New Ticket Raised in Your Department',
+                        html: `<p>
                         Ticket ID: ${formattedTicketId} <br>
                         Name: ${saveddata?.name} <br>
                         Subject: ${saveddata?.subject} <br>
@@ -109,16 +112,19 @@ export const raiseTicket = async (req, res) => {
                         Description: ${saveddata?.department?.find(dept => dept?.name === curElem?.department)?.description || 'N/A'}
                         ${attachedFile ? `Attachment: <a href="${attachedFile}" target="_blank" rel="noopener noreferrer">View Attached File</a>` : ''}
                     </p>`,
-                };
-                await transporter.sendMail(mailBody);
-            }));
+                    };
+                    await transporter.sendMail(mailBody);
+                }));
+            }
 
-            await Promise.all(executiveEmails.map(async (curElem) => {
-                const mailBody = {
-                    from: process.env.USER_EMAIL,
-                    to: curElem.email,
-                    subject: 'New Ticket Raised in Your Department',
-                    html: `<p>
+
+            if (executiveEmails?.length > 0) {
+                await Promise.all(executiveEmails.map(async (curElem) => {
+                    const mailBody = {
+                        from: process.env.USER_EMAIL,
+                        to: curElem.email,
+                        subject: 'New Ticket Raised in Your Department',
+                        html: `<p>
                         Ticket ID: ${formattedTicketId} <br>
                         Name: ${saveddata?.name} <br>
                         Subject: ${saveddata?.subject} <br>
@@ -130,9 +136,11 @@ export const raiseTicket = async (req, res) => {
                         Description: ${saveddata?.department?.find(dept => dept?.name === curElem?.department)?.description || 'N/A'}
                         ${attachedFile ? `Attachment: <a href="${attachedFile}" target="_blank" rel="noopener noreferrer">View Attached File</a>` : ''}
                     </p>`,
-                };
-                await transporter.sendMail(mailBody);
-            }));
+                    };
+                    await transporter.sendMail(mailBody);
+                }));
+            }
+
 
             return res.status(200).json({
                 success: true,
